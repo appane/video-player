@@ -12,19 +12,30 @@
     <!-- Example 1 -->
     <div class="launch-image-holder">
         <div class="launch-image" id="videoThumb">
-            <div class="launch-image-inner" id="thumbOverlay"></div>
-            <div class="launch-image-playhead" id="playIcon"></div>
+            <div class="launch-image-inner" id="thumbOverlay" ccl-video-src="https://www.youtube.com/embed/OmLoMDHcBns"></div>
+            <div class="launch-image-playhead" id="playIcon" ccl-video-src="https://www.youtube.com/embed/OmLoMDHcBns"></div>
         </div>
     </div>
-    <!-- Video Player -->
-    <div id="mask" class="hide-element">
-        <div id="videoPlayer" ccl-video-src="https://www.youtube.com/embed/OmLoMDHcBns"></div>
-        <i id="closePlayer" class="material-icons">close</i>
-    </div>
+
+    <!-- Example 2 -->
+    <div class="launch-image-holder">
+            <div class="launch-image" id="videoThumb">
+                <div class="launch-image-inner" id="thumbOverlay2" ccl-video-src="https://www.youtube.com/embed/c0oy0vQKEZE"></div>
+                <div class="launch-image-playhead" id="playIcon2" ccl-video-src="https://www.youtube.com/embed/c0oy0vQKEZE"></div>
+            </div>
+        </div>
+    
     
     <!-- Play Video Button -->
     <button id="playVideoBtn" ccl-video-src="https://www.youtube.com/embed/OmLoMDHcBns">Watch Cecula API Tour</button>
     <button id="new-in-js" ccl-video-src="https://www.youtube.com/embed/c0oy0vQKEZE">Watch What's New in JavaScript</button>
+    <button id="steve-jobs-video" ccl-video-src="https://www.youtube.com/embed/5fI3zz2cp3k">Steve Jobs Video</button>
+    
+    <!-- Video Player -->
+    <div id="mask" class="hide-element">
+        <div id="videoPlayer"></div>
+        <i id="closePlayer" class="material-icons">close</i>
+    </div>
 </body>
 <script src="js/player.js"></script>
 </html>

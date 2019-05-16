@@ -5,7 +5,12 @@ function vereafy () {
     // Add list of play buttons to this array
     const playButtonSelectors = [
         "#playVideoBtn",
-        "#new-in-js"
+        "#new-in-js",
+        "#steve-jobs-video",
+        "#playIcon",
+        "#thumbOverlay",
+        "#playIcon2",
+        "#thumbOverlay2"
     ];
     const ua = navigator.userAgent;
     const isIOSSafari = /AppleWebKit.*Safari\//i.test(ua) && !ua.includes('Chrome');
@@ -20,14 +25,9 @@ function vereafy () {
     // Video Thumbnail holder
     const playerMaskClass = 'hover-inner-image';
     const hideElementClass = 'hide-element';
-    const pictureThumbOverlay = '#thumbOverlay';
-
-    const thumbOverlay = document.querySelector(pictureThumbOverlay);
-    const playIcon = document.querySelector('#playIcon');
     const videoThumb = document.querySelector('#videoThumb');
     const playerDiv = document.querySelector('#videoPlayer');
     const maskDiv = document.querySelector('#mask');
-    const playTriggers = [thumbOverlay, playIcon];
     let videoActive = false;
 
     // Setting up to listen for play click from several buttons
@@ -74,14 +74,6 @@ function vereafy () {
     document.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
-        }
-
-        // For starting launching the video play modal
-        if (playTriggers.indexOf(e.target) > -1) {
-            if (maskDiv.classList.contains(hideElementClass)) {
-                const videoSelector = document.querySelector("#videoPlayer")
-                launchPlayer(videoSelector.getAttribute("ccl-video-src"))
-            }
         }
 
         // If a button is clicked to begin the video play
