@@ -2,3 +2,5 @@
 /package.json
 /package-lock.json
 /css/player.css
+/.eslintrc.json
+.gitignore

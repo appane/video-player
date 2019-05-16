@@ -53,9 +53,15 @@ a.btn{
     margin: 0 auto;
 }
 
-.launch-image {
-    /* background: url("../media/vereafy-illustration-dark.png"); */
+.launch-image1 {
     background: url("../media/tour-thumbnail.jpg");
+}
+  
+.launch-image2 {
+    background: url("../media/tour-thumbnail.jpg");
+}
+  
+.launch-image1, .launch-image2 {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -66,15 +72,13 @@ a.btn{
     cursor: pointer;
     overflow: hidden;
     position: relative;
-
 }
 
 .launch-image-inner{
     height: 80px;
     width: 80px;
-    background-color: #4d4d4d;
+    background-color: rgba(77, 77, 77, 0.7);
     border-radius: 100%;
-    opacity: 0.7;
     cursor: pointer;
     transition: all linear 100ms;
     margin-top: calc(175px - 50px);
@@ -94,8 +98,8 @@ a.btn{
     border: transparent solid 19px;
     border-left: white solid 32px;
     width: 0px;
-    opacity: 1;
     position: absolute;
+    
     top: calc(50% - 27px);
     z-index: 5;
     left: calc(50% - 12px);
@@ -245,10 +249,6 @@ footer {
     width: 100%;
 }
 
-button {
-    /* border-style: none;
-    border-width: 0px; */
-}
 
 li {
     list-style-type: none;

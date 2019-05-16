@@ -1,43 +1,32 @@
-window.addEventListener('DOMContentLoaded', vereafy)
+window.addEventListener("DOMContentLoaded", vereafy)
 ;
 
 function vereafy () {
-    // Add list of play buttons to this array
-    const playButtonSelectors = [
-        "#playVideoBtn",
-        "#new-in-js",
-        "#steve-jobs-video",
-        "#playIcon",
-        "#thumbOverlay",
-        "#playIcon2",
-        "#thumbOverlay2"
+    // Thumbnails register
+    const thumbnailElements = [
+        "#thumb1",
+        "#thumb2"
     ];
+
     const ua = navigator.userAgent;
-    const isIOSSafari = /AppleWebKit.*Safari\//i.test(ua) && !ua.includes('Chrome');
+    const isIOSSafari = /AppleWebKit.*Safari\//i.test(ua) && !ua.includes("Chrome");
     if (isIOSSafari) {
-        var h1 = document.getElementById('main-caption');
-        var att = document.createAttribute('class');
-        att.value = 'ios-safari-patch';
+        var h1 = document.getElementById("main-caption");
+        var att = document.createAttribute("class");
+        att.value = "ios-safari-patch";
         h1.setAttributeNode(att);
     }
 
-    var modal = document.querySelector('#modal');
+    var modal = document.querySelector("#modal");
     // Video Thumbnail holder
-    const playerMaskClass = 'hover-inner-image';
-    const hideElementClass = 'hide-element';
-    const videoThumb = document.querySelector('#videoThumb');
-    const playerDiv = document.querySelector('#videoPlayer');
-    const maskDiv = document.querySelector('#mask');
+    const playerMaskClass = "hover-inner-image";
+    const thumbnailHoverable = ".launch-image-inner";
+    const hideElementClass = "hide-element";
+    const videoSrcAttribute = "ccl-video-src";
+    const videoIframe = "videoIframe";
+    const playerDiv = document.querySelector("#videoPlayer");
+    const maskDiv = document.querySelector("#mask");
     let videoActive = false;
-
-    // Setting up to listen for play click from several buttons
-    const btnTriggers = [];
-    const totalPlayButtons = playButtonSelectors.length
-    if (totalPlayButtons > 0) {
-        for (let i = 0; i < totalPlayButtons; i++) {
-            btnTriggers.push(document.querySelector(playButtonSelectors[i]))
-        }
-    }
 
     // Calculate Video Player Position
     function calculateVideoPlayerPositionAndDimension () {
@@ -60,41 +49,40 @@ function vereafy () {
         };
     }
 
-    window.addEventListener('resize', e => {
+    window.addEventListener("resize", e => {
         if (videoActive) {
             let playerDimension = calculateVideoPlayerPositionAndDimension();
-            playerDiv.setAttribute('style', `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
+            playerDiv.setAttribute("style", `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
             playerDimension = calculateVideoPlayerPositionAndDimension();
-            const playerFrame = document.querySelector('#videoIframe');
-            playerFrame.setAttribute('width', playerDimension.width);
-            playerFrame.setAttribute('height', playerDimension.height);
+            const playerFrame = document.querySelector(`#${videoIframe}`);
+            playerFrame.setAttribute("width", playerDimension.width);
+            playerFrame.setAttribute("height", playerDimension.height);
         }
     });
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.style.display = 'none';
+            modal.style.display = "none";
         }
 
-        // If a button is clicked to begin the video play
-        if (btnTriggers.indexOf(e.target) > -1) {
-            launchPlayer(e.target.getAttribute("ccl-video-src"))
+        if (e.target.getAttribute(videoSrcAttribute)) {
+            launchPlayer(e.target.getAttribute(videoSrcAttribute));
         }
 
         // Launches Player and Starts playing the video
-        function launchPlayer(videoSrc) {
+        function launchPlayer (videoSrc) {
             // Show video when launched
             let playerDimension = calculateVideoPlayerPositionAndDimension();
-            playerDiv.setAttribute('style', `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
-            
-            playerDiv.innerHTML = `<iframe id="videoIframe" width="${playerDimension.width}" height="${playerDimension.height}" src="${videoSrc}?rel=0&amp;showinfo=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            playerDiv.setAttribute("style", `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
+
+            playerDiv.innerHTML = `<iframe id="${videoIframe}" width="${playerDimension.width}" height="${playerDimension.height}" src="${videoSrc}?rel=0&amp;showinfo=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             maskDiv.classList.remove(hideElementClass);
             videoActive = true;
 
-            const closeBtn = document.querySelector('#closePlayer');
-            document.addEventListener('click', e => {
+            const closeBtn = document.querySelector("#closePlayer");
+            document.addEventListener("click", e => {
                 if ([closeBtn, maskDiv].indexOf(e.target) > -1) {
-                    playerDiv.innerHTML = '';
+                    playerDiv.innerHTML = "";
                     maskDiv.classList.add(hideElementClass);
                     videoActive = false;
                 }
@@ -102,17 +90,28 @@ function vereafy () {
         }
     });
 
+    const thumbnailNodes = [];
+    for (let i = 0; i < thumbnailElements.length; i++) {
+        thumbnailNodes.push(document.querySelector(thumbnailElements[i]));
+    }
+
     // Listen for mouseover on the thumbnail
-    document.addEventListener('mouseover', (e) => {
-        if ([videoThumb, playIcon].indexOf(e.target) > -1 && thumbOverlay.classList.contains(playerMaskClass) === false) {
-            thumbOverlay.classList.add(playerMaskClass);
+    document.addEventListener("mouseover", (e) => {
+        if (thumbnailNodes.indexOf(e.target) > -1) {
+            let overlayThumb = e.target.querySelector(thumbnailHoverable);
+            if (overlayThumb.classList.contains(playerMaskClass) === false) {
+                overlayThumb.classList.add(playerMaskClass);
+            }
         }
     });
 
     // Listen for when mouse leaves the thumbnail
-    document.addEventListener('mouseout', (e) => {
-        if ([videoThumb, playIcon].indexOf(e.target) > -1 && thumbOverlay.classList.contains(playerMaskClass)) {
-            thumbOverlay.classList.remove(playerMaskClass);
+    document.addEventListener("mouseout", (e) => {
+        if (thumbnailNodes.indexOf(e.target) > -1) {
+            let overlayThumb = e.target.querySelector(thumbnailHoverable);
+            if (overlayThumb.classList.contains(playerMaskClass)) {
+                overlayThumb.classList.remove(playerMaskClass);
+            }
         }
     });
 }

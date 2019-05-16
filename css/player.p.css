@@ -18,9 +18,15 @@ body {
   margin: 0 auto;
 }
 
-.launch-image {
-  /* background: url("../media/vereafy-illustration-dark.png"); */
+.launch-image1 {
   background: url("../media/tour-thumbnail.jpg");
+}
+
+.launch-image2 {
+  background: url("../media/tour-thumbnail.jpg");
+}
+
+.launch-image1,.launch-image2 {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -36,9 +42,8 @@ body {
 .launch-image-inner {
   height: 80px;
   width: 80px;
-  background-color: #4d4d4d;
+  background-color: rgba(77, 77, 77, 0.7);
   border-radius: 100%;
-  opacity: 0.7;
   cursor: pointer;
   transition: all linear 100ms;
   margin-top: calc(175px - 50px);
@@ -58,7 +63,6 @@ body {
   border: transparent solid 19px;
   border-left: white solid 32px;
   width: 0px;
-  opacity: 1;
   position: absolute;
   top: calc(50% - 27px);
   z-index: 5;
@@ -116,12 +120,21 @@ body {
     width: 700px;
 } */
 
-button {
-  /* border-style: none;
-    border-width: 0px; */
+/* Header css properties */
+
+.c {
+  padding: 18px 10px 19px 10px;
+  background-color: #ff2500;
+  color: #fff;
+  font-weight: 600;
 }
 
-/* Header css properties */
+.c::before {
+  content: "Call or SMS";
+  color: #fff;
+  position: absolute;
+  right: 152px;
+}
 
 /* media queries css */
 
