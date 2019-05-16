@@ -1,5 +1,5 @@
 # Appane YouTube Video Player
-This plugin enables you to quickly activate a fancy video play on your website.
+This plugin enables you to quickly activate a simple and elegant video player on your website in two(2) minutes.
 
 ## How to Install
 After cloning this plugin, simple add the following css link to your __head__ tag
@@ -46,4 +46,5 @@ Add the thumbnail ID in the __thumbnailElements__ array __js/player.js__ script.
 To add a new thumbnail to your video, save your designed thumbnail to the **media** folder, create a css file to generate the background image and attach the image class to you videoThumb class.  
 
 ## Conclusion
-Congratulations!!! Your website should be playing your YouTube videos by now. Feel free to fork this repo and let's make it work better.
+Congratulations!!! Your website should be playing your YouTube videos by now. Feel free to fork this repo and let's make it work better or use the issues tab above to report bugs.
+If you think I did a good job, please leave a star.
