@@ -510,9 +510,6 @@ li {
         top: calc(50% - 24px);
     }
 
-    .launch-image-holder{
-        height: 460px;
-    }
 }
 
 @media (min-width: 1024px) {
