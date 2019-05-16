@@ -1,14 +1,8 @@
-/* Direct Tags Css */
-
 body {
   font-family: Montserrat, sans-serif;
   font-size: 97%;
   color: #4d4d4d;
   /* background: #222222; */
-}
-
-h1 {
-  font-size: 47px;
 }
 
 ::selection {
@@ -121,6 +115,11 @@ h1 {
 /* .player-thumbnail{
     width: 700px;
 } */
+
+button {
+  /* border-style: none;
+    border-width: 0px; */
+}
 
 /* Header css properties */
 

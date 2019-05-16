@@ -1,5 +1,3 @@
-/* Direct Tags Css */
-
 body {
     font-family: Montserrat, sans-serif;
     font-size: 97%;
@@ -248,8 +246,8 @@ footer {
 }
 
 button {
-    border-style: none;
-    border-width: 0px;
+    /* border-style: none;
+    border-width: 0px; */
 }
 
 li {

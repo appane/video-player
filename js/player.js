@@ -2,6 +2,11 @@ window.addEventListener('DOMContentLoaded', vereafy)
 ;
 
 function vereafy () {
+    // Add list of play buttons to this array
+    const playButtonSelectors = [
+        "#playVideoBtn",
+        "#new-in-js"
+    ];
     const ua = navigator.userAgent;
     const isIOSSafari = /AppleWebKit.*Safari\//i.test(ua) && !ua.includes('Chrome');
     if (isIOSSafari) {
@@ -12,21 +17,27 @@ function vereafy () {
     }
 
     var modal = document.querySelector('#modal');
-    var phoneline = document.querySelector('.phoneline i');
     // Video Thumbnail holder
     const playerMaskClass = 'hover-inner-image';
     const hideElementClass = 'hide-element';
     const pictureThumbOverlay = '#thumbOverlay';
-    const callRequestStatusId = '#call-request-status';
 
     const thumbOverlay = document.querySelector(pictureThumbOverlay);
     const playIcon = document.querySelector('#playIcon');
     const videoThumb = document.querySelector('#videoThumb');
     const playerDiv = document.querySelector('#videoPlayer');
     const maskDiv = document.querySelector('#mask');
-    const callRequestStatus = document.querySelector(callRequestStatusId);
     const playTriggers = [thumbOverlay, playIcon];
     let videoActive = false;
+
+    // Setting up to listen for play click from several buttons
+    const btnTriggers = [];
+    const totalPlayButtons = playButtonSelectors.length
+    if (totalPlayButtons > 0) {
+        for (let i = 0; i < totalPlayButtons; i++) {
+            btnTriggers.push(document.querySelector(playButtonSelectors[i]))
+        }
+    }
 
     // Calculate Video Player Position
     function calculateVideoPlayerPositionAndDimension () {
@@ -49,12 +60,6 @@ function vereafy () {
         };
     }
 
-    // Show Notification
-    function showNotification (message, type) {
-        callRequestStatus.innerText = message;
-        callRequestStatus.classList.add(type === 'error' ? 'red-text' : 'dark-text');
-    }
-
     window.addEventListener('resize', e => {
         if (videoActive) {
             let playerDimension = calculateVideoPlayerPositionAndDimension();
@@ -70,31 +75,38 @@ function vereafy () {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
-        if (e.target === phoneline) {
-            modal.style.display = 'block';
-            window.scrollTo(top, 0);
-        }
 
         // For starting launching the video play modal
         if (playTriggers.indexOf(e.target) > -1) {
             if (maskDiv.classList.contains(hideElementClass)) {
-                // Show video when launched
-                let playerDimension = calculateVideoPlayerPositionAndDimension();
-                playerDiv.setAttribute('style', `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
-                const videoSrc = document.querySelector("#videoPlayer")
-                playerDiv.innerHTML = `<iframe id="videoIframe" width="${playerDimension.width}" height="${playerDimension.height}" src="${videoSrc.getAttribute("ccl-video-src")}?rel=0&amp;showinfo=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                maskDiv.classList.remove(hideElementClass);
-                videoActive = true;
-
-                const closeBtn = document.querySelector('#closePlayer');
-                document.addEventListener('click', e => {
-                    if ([closeBtn, maskDiv].indexOf(e.target) > -1) {
-                        playerDiv.innerHTML = '';
-                        maskDiv.classList.add(hideElementClass);
-                        videoActive = false;
-                    }
-                });
+                const videoSelector = document.querySelector("#videoPlayer")
+                launchPlayer(videoSelector.getAttribute("ccl-video-src"))
             }
+        }
+
+        // If a button is clicked to begin the video play
+        if (btnTriggers.indexOf(e.target) > -1) {
+            launchPlayer(e.target.getAttribute("ccl-video-src"))
+        }
+
+        // Launches Player and Starts playing the video
+        function launchPlayer(videoSrc) {
+            // Show video when launched
+            let playerDimension = calculateVideoPlayerPositionAndDimension();
+            playerDiv.setAttribute('style', `left: ${playerDimension.leftPercentage}%; top: ${playerDimension.topPx}px; height: ${playerDimension.height}px`);
+            
+            playerDiv.innerHTML = `<iframe id="videoIframe" width="${playerDimension.width}" height="${playerDimension.height}" src="${videoSrc}?rel=0&amp;showinfo=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            maskDiv.classList.remove(hideElementClass);
+            videoActive = true;
+
+            const closeBtn = document.querySelector('#closePlayer');
+            document.addEventListener('click', e => {
+                if ([closeBtn, maskDiv].indexOf(e.target) > -1) {
+                    playerDiv.innerHTML = '';
+                    maskDiv.classList.add(hideElementClass);
+                    videoActive = false;
+                }
+            });
         }
     });
 
