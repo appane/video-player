@@ -112,7 +112,7 @@ a.btn{
     z-index: 100;
     border: none;
     background: #d4d4d4;
-    box-shadow: 1px 1px 45px #4d4d4d;
+    box-shadow: 1px 1px 5px #4d4d4d;
 }
 
 .hide-element{
