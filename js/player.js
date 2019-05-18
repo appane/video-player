@@ -8,15 +8,6 @@ function vereafy () {
         "#thumb2"
     ];
 
-    const ua = navigator.userAgent;
-    const isIOSSafari = /AppleWebKit.*Safari\//i.test(ua) && !ua.includes("Chrome");
-    if (isIOSSafari) {
-        var h1 = document.getElementById("main-caption");
-        var att = document.createAttribute("class");
-        att.value = "ios-safari-patch";
-        h1.setAttributeNode(att);
-    }
-
     var modal = document.querySelector("#modal");
     // Video Thumbnail holder
     const playerMaskClass = "hover-inner-image";
